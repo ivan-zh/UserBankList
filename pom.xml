@@ -19,6 +19,13 @@
   </properties>
 
   <dependencies>
+    <!-- H2 as in-memory database fully compatible with MySQL  -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.199</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

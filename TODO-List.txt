@@ -1,0 +1,20 @@
+TODO
+
+* 17.04.2019
+
+OK  1. метод init - создаем 2 таблицы и заполняем их значениями.
+2. Создать классы UserDao и AccountDao - наследников H2Dao
+3* Создать юнит-тесты для UserDao и AccountDao
+4. Создать сервисы  UserService и AccountService
+
+5. Создать контроллер (get-методы), возвращающий юзеров и аккаунты
+ Логика:
+ Контроллер -> Сервис -> DAO -> методы с sql запросами
+
+* 18.04 done:
+
+ 1. TODO list added
+ 2. DBinitializer has been added.
+    It fills our database with initial values.
+ 3. UserDao added
+ 4. ConsoleApplication created
