@@ -52,6 +52,39 @@ public class AccountDao implements Dao<Account> {
         return account;
     }
 
+    public List<Account> getAccountsByUserId(final Long userId) throws DaoException {
+        List<Account> accountsOfUser = new ArrayList<>();
+        Connection connection = H2DaoManager.getDBConnection();
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ACCOUNT WHERE USERID = ?");
+            ps.setLong(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            Account account;
+            while (rs.next()) {
+                account = new Account();
+                account.setId(Long.valueOf(rs.getString("id")));
+                account.setAmount(Long.valueOf(rs.getString("amount")));
+                account.setUserId(Long.valueOf(rs.getString("userId")));
+                accountsOfUser.add(account);
+            }
+            ps.close();
+            connection.commit();
+        } catch (SQLException e) {
+            LOGGER.warning(e.getMessage());
+            throw new DaoException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                LOGGER.warning(e.getMessage());
+                throw new DaoException(e);
+            }
+        }
+        return accountsOfUser;
+    }
+
     @Override
     public List<Account> getAll() throws DaoException {
         List<Account> allAccounts = new ArrayList<>();

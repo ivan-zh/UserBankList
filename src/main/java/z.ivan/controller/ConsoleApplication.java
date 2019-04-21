@@ -7,6 +7,8 @@ import z.ivan.model.dao.UserDao;
 import z.ivan.model.dao.exception.DaoException;
 import z.ivan.model.entity.Account;
 import z.ivan.model.entity.User;
+import z.ivan.service.Service;
+import z.ivan.service.impl.UserService;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class ConsoleApplication {
     public static void main(String[] args) throws DaoException {
         DBinitializer.initDataBase();
+        checkUserService();
     }
 
     private static void checkUserDao() throws DaoException {
@@ -40,5 +43,14 @@ public class ConsoleApplication {
 
         Account account2 = accountDao.get(2L);
         System.out.println(account2);
+    }
+
+    private static void checkUserService() throws DaoException {
+        Service<User> service = UserService.getInstance();
+        User user = service.get(1L);
+        System.out.println(user);
+
+
+
     }
 }

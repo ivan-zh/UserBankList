@@ -23,3 +23,4 @@ TODO
 
 1. Dao classes redesigned into singletones.
 2. AccountDao added.
+3. Services for User and Account added.

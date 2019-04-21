@@ -28,7 +28,6 @@ public class UserDao implements Dao<User> {
     }
 
     private UserDao() {
-
     }
 
     @Override
