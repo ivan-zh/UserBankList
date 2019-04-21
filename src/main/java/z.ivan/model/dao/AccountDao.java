@@ -1,7 +1,7 @@
 package z.ivan.model.dao;
 
 import z.ivan.model.dao.exception.DaoException;
-import z.ivan.model.entity.User;
+import z.ivan.model.entity.Account;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,64 +11,63 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class UserDao implements Dao<User> {
-    private static final Logger LOGGER = Logger.getLogger(UserDao.class.getName());
+public class AccountDao implements Dao<Account> {
+    private static final Logger LOGGER = Logger.getLogger(AccountDao.class.getName());
 
-    private static volatile UserDao instance;
+    private static volatile AccountDao instance;
 
-    public static UserDao getInstance() {
+    public static AccountDao getInstance() {
         if (instance == null) {
-            synchronized (UserDao.class) {
+            synchronized (AccountDao.class) {
                 if (instance == null) {
-                    instance = new UserDao();
+                    instance = new AccountDao();
                 }
             }
         }
         return instance;
     }
 
-    private UserDao() {
-
+    private AccountDao() {
     }
 
     @Override
-    public User get(final Long id) throws DaoException {
-        User user;
+    public Account get(final Long id) throws DaoException {
+        Account account;
         Connection connection = H2DaoManager.getDBConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM USER WHERE ID = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ACCOUNT WHERE ID = ?");
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
-            user = new User();
+            account = new Account();
             while (rs.next()) {
-                user.setId(Long.parseLong(rs.getString("id")));
-                user.setName(rs.getString("name"));
-                user.setSurname(rs.getString("surname"));
+                account.setId(Long.valueOf(rs.getString("id")));
+                account.setAmount(Long.valueOf(rs.getString("amount")));
+                account.setUserId(Long.valueOf(rs.getString("userId")));
             }
             ps.close();
         } catch (SQLException e) {
             LOGGER.warning(e.getMessage());
             throw new DaoException(e);
         }
-        return user;
+        return account;
     }
 
     @Override
-    public List<User> getAll() throws DaoException {
-        List<User> allUsers = new ArrayList<>();
+    public List<Account> getAll() throws DaoException {
+        List<Account> allAccounts = new ArrayList<>();
         Connection connection = H2DaoManager.getDBConnection();
         try {
             connection.setAutoCommit(false);
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM USER");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ACCOUNT");
             ResultSet rs = ps.executeQuery();
 
-            User user;
+            Account account;
             while (rs.next()) {
-                user = new User();
-                user.setId(Long.parseLong(rs.getString("id")));
-                user.setName(rs.getString("name"));
-                user.setSurname(rs.getString("surname"));
-                allUsers.add(user);
+                account = new Account();
+                account.setId(Long.valueOf(rs.getString("id")));
+                account.setAmount(Long.valueOf(rs.getString("amount")));
+                account.setUserId(Long.valueOf(rs.getString("userId")));
+                allAccounts.add(account);
             }
             ps.close();
             connection.commit();
@@ -83,17 +82,17 @@ public class UserDao implements Dao<User> {
                 throw new DaoException(e);
             }
         }
-        return allUsers;
+        return allAccounts;
     }
 
     @Override
-    public void save(final User user) throws DaoException {
+    public void save(final Account account) throws DaoException {
         Connection connection = H2DaoManager.getDBConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO USER (id, name, surname) VALUES (?, ?, ?)");
-            ps.setLong(1, user.getId());
-            ps.setString(2, user.getName());
-            ps.setString(3, user.getSurname());
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO ACCOUNT (id, amount, userId) VALUES (?, ?, ?)");
+            ps.setLong(1, account.getId());
+            ps.setLong(2, account.getAmount());
+            ps.setLong(3, account.getUserId());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -110,15 +109,15 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public void save(final Collection<User> userCollection) throws DaoException {
+    public void save(final Collection<Account> accountCollection) throws DaoException {
         Connection connection = H2DaoManager.getDBConnection();
         try {
             connection.setAutoCommit(false);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO USER (id, name, surname) VALUES (?, ?, ?)");
-            for (User user : userCollection) {
-                ps.setLong(1, user.getId());
-                ps.setString(2, user.getName());
-                ps.setString(3, user.getSurname());
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO ACCOUNT (id, amount, userId) VALUES (?, ?, ?)");
+            for (Account account : accountCollection) {
+                ps.setLong(1, account.getId());
+                ps.setLong(2, account.getAmount());
+                ps.setLong(3, account.getUserId());
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -138,13 +137,13 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public void update(final User user) throws DaoException {
+    public void update(final Account account) throws DaoException {
         Connection connection = H2DaoManager.getDBConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE USER SET name = ?, surname = ? WHERE id = ?");
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getSurname());
-            ps.setLong(3, user.getId());
+            PreparedStatement ps = connection.prepareStatement("UPDATE ACCOUNT SET amount = ?, userId = ? WHERE id = ?");
+            ps.setLong(1, account.getAmount());
+            ps.setLong(2, account.getUserId());
+            ps.setLong(3, account.getId());
             ps.executeUpdate();
 
             ps.close();
@@ -165,7 +164,7 @@ public class UserDao implements Dao<User> {
     public void delete(final Long id) throws DaoException {
         Connection connection = H2DaoManager.getDBConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM USER WHERE id = ?");
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM ACCOUNT WHERE id = ?");
             ps.setLong(1, id);
             ps.executeUpdate();
 

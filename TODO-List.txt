@@ -2,7 +2,7 @@ TODO
 
 * 17.04.2019
 
-OK  1. метод init - создаем 2 таблицы и заполняем их значениями.
+1. метод init - создаем 2 таблицы и заполняем их значениями.
 2. Создать классы UserDao и AccountDao - наследников H2Dao
 3* Создать юнит-тесты для UserDao и AccountDao
 4. Создать сервисы  UserService и AccountService
@@ -18,3 +18,8 @@ OK  1. метод init - создаем 2 таблицы и заполняем �
     It fills our database with initial values.
  3. UserDao added
  4. ConsoleApplication created
+
+*21.04 done:
+
+1. Dao classes redesigned into singletones.
+2. AccountDao added.

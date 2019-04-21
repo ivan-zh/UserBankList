@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 
-public class DBinitializer extends H2DaoManager {
+public class DBinitializer {
     private static final Logger LOGGER = Logger.getLogger(DBinitializer.class.getName());
-
-
     private static boolean isInitialized = false;
+
+    private DBinitializer() {
+    }
 
     public static void initDataBase() {
         if (!isInitialized) {
@@ -21,12 +22,12 @@ public class DBinitializer extends H2DaoManager {
             String createUserTable = "CREATE TABLE USER (id INT, name varchar(255), surname varchar(255))";
             String insertUser = "INSERT INTO USER (id, name, surname) VALUES (?, ?, ?)";
 
-            Connection connection = getDBConnection();
+            Connection connection = H2DaoManager.getDBConnection();
 
-            PreparedStatement createAccountsPS = null;
-            PreparedStatement insertAccountPS = null;
-            PreparedStatement createUserTablePS = null;
-            PreparedStatement insertUserPS = null;
+            PreparedStatement createAccountsPS;
+            PreparedStatement insertAccountPS;
+            PreparedStatement createUserTablePS;
+            PreparedStatement insertUserPS;
             try {
                 connection.setAutoCommit(false);
                 //CREATE TABLE `ACCOUNT`
@@ -91,6 +92,7 @@ public class DBinitializer extends H2DaoManager {
             } finally {
                 try {
                     connection.close();
+                    isInitialized = true;
                 } catch (SQLException e) {
                     LOGGER.warning(e.getMessage());
                 }
@@ -108,8 +110,8 @@ public class DBinitializer extends H2DaoManager {
 
     private static void printTableUSER() {
         String selectQuery = "select * from USER";
-        PreparedStatement selectAll = null;
-        Connection connection = getDBConnection();
+        PreparedStatement selectAll;
+        Connection connection = H2DaoManager.getDBConnection();
         try {
             connection.setAutoCommit(false);
             selectAll = connection.prepareStatement(selectQuery);
@@ -134,8 +136,8 @@ public class DBinitializer extends H2DaoManager {
 
     private static void printTableACCOUNT() {
         String selectQuery = "select * from ACCOUNT";
-        PreparedStatement selectAll = null;
-        Connection connection = getDBConnection();
+        PreparedStatement selectAll;
+        Connection connection = H2DaoManager.getDBConnection();
         try {
             connection.setAutoCommit(false);
             selectAll = connection.prepareStatement(selectQuery);

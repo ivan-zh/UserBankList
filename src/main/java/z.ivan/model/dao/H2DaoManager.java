@@ -14,6 +14,9 @@ public class H2DaoManager {
     private static final String DB_USER = "";
     private static final String DB_PASSWORD = "";
 
+    private H2DaoManager() {
+    }
+
     public static Connection getDBConnection() {
         Connection dbConnection = null;
         try {
