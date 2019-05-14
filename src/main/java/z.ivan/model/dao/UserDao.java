@@ -1,6 +1,7 @@
 package z.ivan.model.dao;
 
 import z.ivan.model.dao.exception.DaoException;
+import z.ivan.model.entity.Account;
 import z.ivan.model.entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,6 +44,7 @@ public class UserDao implements Dao<User> {
                 user.setId(Long.parseLong(rs.getString("id")));
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
+                user.setAccounts(AccountDao.getInstance().getAccountsByUserId(user.getId()));
             }
             ps.close();
         } catch (SQLException e) {
@@ -64,9 +66,13 @@ public class UserDao implements Dao<User> {
             User user;
             while (rs.next()) {
                 user = new User();
+
                 user.setId(Long.parseLong(rs.getString("id")));
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
+
+                user.setAccounts(AccountDao.getInstance().getAccountsByUserId(user.getId()));
+
                 allUsers.add(user);
             }
             ps.close();

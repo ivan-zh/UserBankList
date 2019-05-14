@@ -24,3 +24,6 @@ TODO
 1. Dao classes redesigned into singletones.
 2. AccountDao added.
 3. Services for User and Account added.
+
+* 14.05
+1. UserDao now fills entire User table, including list of user's accounts.
