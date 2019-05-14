@@ -1,4 +1,4 @@
-package z.ivan.model.dao;
+package z.ivan.model.dao.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class H2DaoManager {
 
-    private static final Logger LOGGER = Logger.getLogger(H2DaoManager.class.getName());
+    private static final Logger LOG = Logger.getLogger(H2DaoManager.class.getName());
 
     private static final String DB_DRIVER = "org.h2.Driver";
     private static final String DB_CONNECTION = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
@@ -17,19 +17,14 @@ public class H2DaoManager {
     private H2DaoManager() {
     }
 
-    public static Connection getDBConnection() {
-        Connection dbConnection = null;
+    public static Connection getConnection() throws SQLException {
         try {
             Class.forName(DB_DRIVER);
+            return DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
         } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            final String msg = "Driver has not been found.";
+            LOG.warning(msg);
+            throw new SQLException(msg);
         }
-        try {
-            dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
-            return dbConnection;
-        } catch (SQLException e) {
-            LOGGER.warning(e.getMessage());
-        }
-        return dbConnection;
     }
 }

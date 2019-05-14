@@ -27,3 +27,6 @@ TODO
 
 * 14.05
 1. UserDao now fills entire User table, including list of user's accounts.
+
+* 15.05
+1. Some refactoring performed and Strings extracted.

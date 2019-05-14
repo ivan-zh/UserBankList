@@ -1,7 +1,7 @@
 package z.ivan.service.impl;
 
-import z.ivan.model.dao.AccountDao;
-import z.ivan.model.dao.UserDao;
+import z.ivan.model.dao.impl.AccountDao;
+import z.ivan.model.dao.impl.UserDao;
 import z.ivan.model.dao.exception.DaoException;
 import z.ivan.model.entity.Account;
 import z.ivan.model.entity.User;

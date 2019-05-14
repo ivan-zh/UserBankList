@@ -1,15 +1,12 @@
 package z.ivan.controller;
 
-import z.ivan.model.dao.AccountDao;
-import z.ivan.model.dao.DBinitializer;
-import z.ivan.model.dao.Dao;
+import z.ivan.model.dao.config.DbInitializer;
 import z.ivan.model.dao.exception.DaoException;
 import z.ivan.model.entity.Account;
 import z.ivan.model.entity.User;
 import z.ivan.service.Service;
 import z.ivan.service.impl.AccountService;
 import z.ivan.service.impl.UserService;
-
 import java.util.List;
 
 /**
@@ -18,7 +15,7 @@ import java.util.List;
 
 public class ConsoleApplication {
     public static void main(String[] args) throws DaoException {
-        DBinitializer.initDataBase();
+        DbInitializer.init();
         checkServices();
     }
 
