@@ -4,11 +4,14 @@ import z.ivan.model.dao.impl.AccountDao;
 import z.ivan.model.dao.exception.DaoException;
 import z.ivan.model.entity.Account;
 import z.ivan.service.Service;
-
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static z.ivan.service.impl.SumAccounts.sumAccounts;
 
 public class AccountService implements Service<Account> {
+    private static final Logger LOG = Logger.getLogger(AccountService.class.getName());
 
     private AccountDao accountDao;
 
@@ -57,5 +60,14 @@ public class AccountService implements Service<Account> {
     @Override
     public void delete(Long id) throws DaoException {
         accountDao.delete(id);
+    }
+
+    public Long getTotal() {
+        try {
+            return sumAccounts(getAll());
+        } catch (DaoException e) {
+            LOG.warning(e.getMessage());
+        }
+        return 0L;
     }
 }

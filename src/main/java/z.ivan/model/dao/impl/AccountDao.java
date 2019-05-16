@@ -130,9 +130,6 @@ public class AccountDao implements Dao<Account> {
                         .prepareStatement(INSERT_VALUES)
         ) {
             fillStatement(ps, account);
-//            ps.setLong(1, account.getId());
-//            ps.setLong(2, account.getAmount());
-//            ps.setLong(3, account.getUserId());
             ps.executeUpdate();
         } catch (SQLException e) {
             LOGGER.warning(e.getMessage());

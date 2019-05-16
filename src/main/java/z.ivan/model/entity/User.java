@@ -34,6 +34,10 @@ public class User {
         this.surname = surname;
     }
 
+    public String getFullName() {
+        return name + " " + surname;
+    }
+
     public List<Account> getAccounts() {
         return accounts;
     }

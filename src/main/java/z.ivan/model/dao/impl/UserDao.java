@@ -4,7 +4,6 @@ import z.ivan.model.dao.Dao;
 import z.ivan.model.dao.config.H2DaoManager;
 import z.ivan.model.dao.exception.DaoException;
 import z.ivan.model.entity.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

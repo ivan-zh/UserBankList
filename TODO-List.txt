@@ -30,3 +30,9 @@ TODO
 
 * 15.05
 1. Some refactoring performed and Strings extracted.
+
+* 16.05
+1. Servlets added:
+    get the richest user
+    get the sum of all the accounts in the bank
+2. JSP with forms added.
