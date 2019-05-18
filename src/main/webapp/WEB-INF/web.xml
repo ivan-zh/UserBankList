@@ -20,12 +20,4 @@
         <url-pattern>/richest</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>summator</servlet-name>
-        <servlet-class>z.ivan.controller.AccountsSum</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>summator</servlet-name>
-        <url-pattern>/sum</url-pattern>
-    </servlet-mapping>
 </web-app>

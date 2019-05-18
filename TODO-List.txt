@@ -36,3 +36,7 @@ TODO
     get the richest user
     get the sum of all the accounts in the bank
 2. JSP with forms added.
+
+* 18.05
+1. Summing servlet removed, app redesigned. Now it uses only one servlet.
+2. Unnecessary classes removed.

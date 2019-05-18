@@ -6,15 +6,20 @@
 </head>
 
 <body>
-      <form action = "richest" method = "GET">
-        <input type="text" value = "${name}"/>
-        <input type="submit" value = "Get name of the richest user"/>
-      </form>
+    <h2>Hello!</h2>
+     <form action = "richest" method = "GET">
+        <b>The richest user: </b> <input type="text" value = "${name}"/>
+        <br>
+        <b>Sum of all accounts: </b> <input type="text" value = "${total}"/>
+        <br>
+        <br>
+        Press button to update info:<br>
+        <input type="submit" value = "Get info"/>
+     </form>
     <br/>
-      <form action = "sum" method = "GET">
-        <input type="text" value = "${total}"/>
-        <input type="submit" value = "Get sum of all accounts"/>
-      </form>
+    <!--
+        <c:out value = "${name}"/>
+     -->
 </body>
 
 </html>

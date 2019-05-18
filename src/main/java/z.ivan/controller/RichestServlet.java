@@ -1,6 +1,7 @@
 package z.ivan.controller;
 
 import z.ivan.model.dao.config.DbInitializer;
+import z.ivan.service.impl.AccountService;
 import z.ivan.service.impl.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +13,9 @@ import java.io.IOException;
 
 public class RichestServlet extends HttpServlet {
 
+    private static final AccountService ACCOUNT_SERVICE = AccountService.getInstance();
     private static final UserService USER_SERVICE = UserService.getInstance();
+
 
     @Override
     public void init() throws ServletException {
@@ -22,8 +25,11 @@ public class RichestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String richName = USER_SERVICE.getRichest();
-        req.setAttribute("name", richName);
+        String richestName = USER_SERVICE.getRichest();
+        Long total = ACCOUNT_SERVICE.getTotal();
+
+        req.setAttribute("name", richestName);
+        req.setAttribute("total", total);
 
         RequestDispatcher view = req.getRequestDispatcher("index.jsp");
         view.forward(req, resp);
